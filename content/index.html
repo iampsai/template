@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYOD - Basic Level</title>
+  <link href="static/img/byod-icon.png" rel="icon" type="image/png" />
+  <link href="static/modules/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- prettier-ignore -->
+  <style>
+    body,
+    html {
+      height: 100%;
+      overflow: hidden
+    }
+
+    body {
+      padding: 0
+    }
+
+    #app,
+    .lesson,
+    .lesson__wrap {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #innerApp {
+      display: flex;
+      flex-direction: column;
+      height: 100%
+    }
+
+    .page__lesson {
+      flex: 1 1 auto;
+      position: relative
+    }
+
+    .lesson {
+      position: absolute;
+      inset: 0;
+      margin: 0 auto;
+      max-width: 100%;
+      z-index: 2;
+      word-wrap: break-word;
+      word-break: break-word;
+      transition: padding .3s
+    }
+
+    .lesson__wrap {
+      position: relative;
+      max-height: 100vh;
+      margin: 0 auto;
+      transition: transform .3s
+    }
+
+    .lesson__content {
+      height: 100vh;
+      height: 100dvh
+    }
+
+    .lesson__content_wrapper {
+      height: 100%;
+      -webkit-overflow-scrolling: touch;
+      overflow-x: hidden;
+      overflow-y: auto
+    }
+
+    .lesson__content_wrapper>div {
+      margin: 0;
+      padding: 0
+    }
+
+    .loader-container {
+      display: flex;
+      z-index: 9
+    }
+
+    .loader {
+      width: 48px;
+      height: 48px;
+      display: block;
+      margin: 15px auto;
+      position: relative;
+      color: #ccc;
+      box-sizing: border-box;
+      animation: 1s linear infinite rotation
+    }
+
+    .loader::after,
+    .loader::before {
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      top: 50%;
+      left: 50%;
+      transform: scale(.5) translate(0, 0);
+      background-color: #ccc;
+      border-radius: 50%;
+      animation: 1s ease-in-out infinite animloader
+    }
+
+    .loader::before {
+      background-color: #000;
+      transform: scale(.5) translate(-48px, -48px)
+    }
+
+    @keyframes rotation {
+      0% {
+        transform: rotate(0)
+      }
+
+      100% {
+        transform: rotate(360deg)
+      }
+    }
+
+    @keyframes animloader {
+      50% {
+        transform: scale(1) translate(-50%, -50%)
+      }
+    }
+  </style>
+  <!-- Load resources dynamically -->
+  <script id="__CSS_ENTRIES__" type="application/json">
+      {
+        ".css": [
+          "modules/bootstrap/font/bootstrap-icons.css",
+          "modules/slick/slick.css",
+          "modules/slick/slick-theme.css",
+          "css/style.css",
+          "css/fin_exam.css",
+          "css/slider.css"
+        ]
+      }
+    </script>
+  <script id="__JS_ENTRIES__" type="application/json">
+      {
+        ".js": [
+          "modules/bootstrap/js/bootstrap.min.js",
+          "modules/slick/slick.js",
+          "js/GaugeMeter.js",
+          "js/preloader.js",
+          "js/cookie.js",
+          "js/questions.js",
+          "js/exam.js",
+          "js/course.js",
+          "js/slider.js",
+          "js/accordion1.js",
+          "js/dragAndDrop.js",
+          "js/ext.js"
+        ]
+      }
+    </script>
+  <script id="__REMOTE_MODULE__" type="application/json">
+      {
+        ".js": ["scormApi.js"]
+      }
+    </script>
+  <script>
+    (function () {
+      let SCORMDriver = window.parent;
+      let CourseTitle = "BYOD - Basic Level";
+      let language = "en";
+
+      function loadModule(manifest) {
+        const p = [];
+
+        if (manifest[".css"] != null) {
+          for (var idx = 0; idx < manifest[".css"].length; idx++) {
+            p.push(
+              new Promise((resolve, reject) => {
+                var link = document.createElement("link");
+                link.onload = resolve;
+                link.onerror = reject;
+                link.rel = "stylesheet";
+                link.href = "static/" + manifest[".css"][idx];
+                document.head.appendChild(link);
+              })
+            );
+          }
+        }
+
+        if (manifest[".js"] != null) {
+          for (var idx = 0; idx < manifest[".js"].length; idx++) {
+            p.push(
+              new Promise((resolve, reject) => {
+                var script = document.createElement("script");
+                script.onload = resolve;
+                script.onerror = reject;
+                script.src = "static/" + manifest[".js"][idx];
+                document.body.appendChild(script);
+              })
+            );
+          }
+        }
+
+        return Promise.all(p);
+      }
+
+      function loadRemoteModule(manifest) {
+        const p = [];
+
+        if (manifest[".js"] != null) {
+          for (var idx = 0; idx < manifest[".js"].length; idx++) {
+            p.push(
+              new Promise((resolve, reject) => {
+                var script = document.createElement("script");
+                script.onload = resolve;
+                script.onerror = reject;
+                script.src = "./" + manifest[".js"][idx];
+                document.head.appendChild(script);
+              })
+            );
+          }
+        }
+
+        return Promise.all(p);
+      }
+
+      function __loadCssEntry() {
+        return loadModule(
+          JSON.parse(document.getElementById("__CSS_ENTRIES__").textContent)
+        );
+      }
+
+      function __loadJsEntry() {
+        return loadModule(
+          JSON.parse(document.getElementById("__JS_ENTRIES__").textContent)
+        );
+      }
+
+      function __loadRemoteEntry() {
+        return loadRemoteModule(
+          JSON.parse(document.getElementById("__REMOTE_MODULE__").textContent)
+        );
+      }
+
+      if (SCORMDriver != null && SCORMDriver != window) {
+        let url = window.location.href;
+        let index = url.lastIndexOf("index.html");
+        let staticPath = url.substr(0, index);
+
+        let faviconLink = document.createElement("link");
+        faviconLink.rel = "icon";
+        faviconLink.type = "image/png";
+        faviconLink.href = staticPath + "static/img/favicon.png";
+
+        // Set document title
+        window.parent.parent.document.title = CourseTitle;
+
+        // Set favicon
+        window.parent.parent.document.head.appendChild(faviconLink);
+
+        // Set document language
+        window.parent.parent.document
+          .getElementsByTagName("html")[0]
+          .setAttribute("lang", language);
+
+        // Set lesson location
+        // setLessonLocation('start-training');
+        SCORMDriver.SetBookmark("start-training", "");
+      } else {
+        console.log(
+          "Warning: SCORM API not found. Saving of data will not occur."
+        );
+      }
+
+      window.__loadCssEntry = __loadCssEntry;
+      window.__loadJsEntry = __loadJsEntry;
+      window.__loadRemoteEntry = __loadRemoteEntry;
+    })();
+  </script>
+</head>
+
+<body>
+  <div id="app">
+    <div id="innerApp">
+      <div class="page__lesson">
+        <div class="lesson">
+          <div class="lesson__wrap">
+            <div class="lesson__content">
+              <div class="lesson__content_wrapper">
+                <div>
+                  <div class="loader-container flex-column w-100 h-100 position-absolute bg-light align-items-center justify-content-center">
+                    <span class="loader">&nbsp;</span>
+                    <div>Loading content...</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="course bg-white my-0">
+                    <div class="container d-flex overflow-hidden bg-white">
+                      <section class="holder d-block">
+                        <!-- <div class="content container-fluid mx-auto">
+                          <div class="page-wrap d-flex flex-wrap justify-content-center align-items-center" id="coverPage">
+                            <div class="d-flex py-3">
+                              <div class="row row-gap-5">
+                                <div class="col-lg-4 align-self-center text-center text-lg-start d-flex flex-column">
+                                  <div class="d-flex flex-column justify-content-between">
+                                    <h2 class="mb-5 text-lg-start fw-bold">
+                                      BYOD - Basic level
+                                    </h2>
+                                    <p>
+                                      In this course, you'll gain insights into the best practices and strategies for
+                                      securely utilizing your personal devices in a work environment.
+                                    </p>
+                                  </div>
+                                  <div class="btn-section d-flex justify-content-center justify-content-lg-start pt-5">
+                                    <button class="btn proceed-btn btn-next1 btn-bright-blue text fw-bold px-4" onclick="Course.goPage(2)">
+                                      START COURSE
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="col-lg-8 img-fluid d-flex align-items-center">
+                                  <img class="cover-page-img" src="static/img/byod1.png" alt="" />
+                                </div>
+                                <div class="footer col-12">
+                                  <div class="copyright d-flex justify-content-end">
+                                    <p class="text-end m-0">&copy; Cyberdise <span id="currentYear"></span></p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div> -->
+                      </section>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let pathStatic = "static";
+
+    let date = new Date();
+    let currentYear = date.getFullYear();
+    document.getElementById('currentYear').innerHTML = currentYear;
+  </script>
+  <script src="static/js/jquery-3.7.1.min.js"></script>
+  <script src="static/js/jquery-ui.min.js"></script>
+  <script src="static/js/jquery.ui.touch-punch.min.js"></script>
+  <script src="static/js/jquery.transit.min.js"></script>
+  <script src="static/js/jquery.bxslider.js"></script>
+  <script>
+    __loadCssEntry();
+    __loadJsEntry();
+    __loadRemoteEntry()
+      .then(() => {
+        console.log("scormApi.js has been loaded successfully.");
+        initializeSCORM();
+      })
+      .catch((error) => {
+        console.error("Error loading scormApi.js", error);
+      });
+  </script>
+</body>
+
+</html>

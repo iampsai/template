@@ -1,0 +1,216 @@
+<div class="content w-100">
+  <div class="container-fluid containerWidth2 fin-exam py-5 px-3 px-md-5 bg-white" id="exam">
+    <input id="les47-init" type="hidden" value="0" />
+    <input id="les47-quest" type="hidden" />
+    <input id="les47-countansw" type="hidden" />
+    <input id="les47-answer" type="hidden" />
+    <input id="les47-showresults" type="hidden" value="1" />
+    <div class="title d-flex justify-content-center container-fluid containerWidth2 px-0" data-wow-delay="0.1s">
+      <div class="container-fluid examWidth px-0" id="examTitle">
+        <h2 class="m-0 fin-exam-exam fs-3 header-title">
+          Exam
+          <p class="m-0 pt-1 lessonTracker">LESSON 8 of 9</p>
+        </h2>
+
+        <h2 class="fin-exam-results m-0">
+          Exam Results
+          <p class="m-0 pt-1 lessonTracker">LESSON 8 of 9</p>
+        </h2>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div class="final-exam-start">
+        <p class="py-4 m-0">
+          Now that you've completed the material, it's time to evaluate your
+          understanding.
+        </p>
+
+        <p class="py-4 m-0">
+          The exam contains 5 multiple choice questions. Please select the
+          correct answer.
+        </p>
+
+        <p class="py-4 m-0">
+          <strong>Note:</strong> A minimum score of 80% is required to complete
+          the lesson successfully.
+        </p>
+
+        <p class="py-4 m-0">Wishing you the best of luck!</p>
+        <div class="pt-5">
+          <button class="startbtn m-0">START QUIZ ></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="title2 fin-exam-exam">
+        <p>Question</p>
+        <h1></h1>
+
+        <h2></h2>
+      </div>
+
+      <div class="d-exam fin-exam-exam">
+        <table>
+          <tbody>
+            <tr>
+              <td class="tiny"></td>
+              <td class="tiny">True</td>
+              <td class="tiny">False</td>
+            </tr>
+            <tr class="dotted" id="fin-exam-a0">
+              <td class="chbox chboxgreen">
+                <div class="chbox">
+                  <input data-answer="0" id="ch47-1a" type="checkbox" />
+                  <label for="ch47-1a">&nbsp;</label>
+                </div>
+              </td>
+              <td class="chbox chboxred">
+                <div class="chbox">
+                  <input data-answer="0" id="ch47-1b" type="checkbox" />
+                  <label for="ch47-1b">&nbsp;</label>
+                </div>
+              </td>
+            </tr>
+            <tr class="dotted" id="fin-exam-a1">
+              <td class="chbox chboxgreen">
+                <div class="chbox">
+                  <input data-answer="0" id="ch47-2a" type="checkbox" />
+                  <label for="ch47-2a">&nbsp;</label>
+                </div>
+              </td>
+              <td class="chbox chboxred">
+                <div class="chbox">
+                  <input data-answer="0" id="ch47-2b" type="checkbox" />
+                  <label for="ch47-2b">&nbsp;</label>
+                </div>
+              </td>
+            </tr>
+            <tr class="dotted" id="fin-exam-a2">
+              <td class="chbox chboxgreen">
+                <div class="chbox">
+                  <input data-answer="0" id="ch47-3a" type="checkbox" />
+                  <label for="ch47-3a">&nbsp;</label>
+                </div>
+              </td>
+              <td class="chbox chboxred">
+                <div class="chbox">
+                  <input data-answer="0" id="ch47-3b" type="checkbox" />
+                  <label for="ch47-3b">&nbsp;</label>
+                </div>
+              </td>
+            </tr>
+            <tr id="fin-exam-a3">
+              <td class="chbox chboxgreen">
+                <div class="chbox">
+                  <input data-answer="0" id="ch47-4a" type="checkbox" />
+                  <label for="ch47-4a">&nbsp;</label>
+                </div>
+              </td>
+              <td class="chbox chboxred">
+                <div class="chbox">
+                  <input data-answer="0" id="ch47-4b" type="checkbox" />
+                  <label for="ch47-4b">&nbsp;</label>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="remarks-container" id="remarks">
+        <div class="correct-container" style="display: none">
+          <div class="correct" id="correct">
+            <i class="bi bi-check-lg"></i>
+          </div>
+          <p>Correct</p>
+        </div>
+
+        <div class="incorrect-container" style="display: none">
+          <div class="incorrect" id="incorrect">
+            <i class="bi bi-x"></i>
+          </div>
+          <p>Incorrect</p>
+        </div>
+      </div>
+
+      <div class="butnext fin-exam-exam">
+        <button class="btn b-xx-res b-47-res disabled">SUBMIT</button>
+        <button class="btn b-xx-next b-47-next">NEXT</button>
+      </div>
+      <!-- fin-exam results -->
+
+      <div class="fin-exam-results">
+        <!--h3>
+            Your result is:<span class="l">&nbsp;</span> out of
+            <span class="r">&nbsp;</span>
+          </h3-->
+
+        <table>
+          <tbody></tbody>
+        </table>
+
+        <div class="GaugeMeterContainer d-flex justify-content-center">
+          <div class="default-meter">
+            <div class="GaugeMeter" id="GaugeMeter_1" data-text="null" data-text_size=" 0.4" data-prepend="null" data-append="%" data-size="500"
+              data-width="3" data-style="Arch" data-back="null" data-animate_gauge_colors="true" data-animate_text_colors="true" data-label="null"
+              data-label_color="#FF0000" data-theme="Black1"></div>
+          </div>
+
+          <div class="pass-meter">
+            <div class="GaugeMeter" id="GaugeMeter_1" data-text="null" data-text_size=" 0.4" data-prepend="null" data-append="%" data-size="500"
+              data-width="3" data-style="Arch" data-back="null" data-animate_gauge_colors="true" data-animate_text_colors="true" data-label="null"
+              data-label_color="#FF0000" data-theme="DarkGreen"></div>
+          </div>
+
+          <div class="failed-meter">
+            <div class="GaugeMeter" id="GaugeMeter_1" data-text="null" data-text_size=" 0.4" data-prepend="null" data-append="%" data-size="500"
+              data-width="3" data-style="Arch" data-back="null" data-animate_gauge_colors="true" data-animate_text_colors="true" data-label="null"
+              data-label_color="#FF0000" data-theme="Red"></div>
+          </div>
+          <div class="passingscore position-relative">
+            <img class="line" src="static/img/linee.PNG" alt="Image" style="
+                position: absolute;
+                transform: translate(-50%, -50%);
+                z-index: 1;
+              " />
+            <p class="passing position-absolute fw-bold">Passing<br />80%</p>
+          </div>
+          <div class="YourScore">Your Score <span id="score"></span></div>
+          <p class="fail d-none" id="fail">
+            <i class="bi bi-x-lg d-flex mx-auto" style="font-size: 150px; margin-top: -72px; color: red"></i>
+          </p>
+          <div class="checkmark d-none" id="pass">
+            <i class="bi bi-check-lg d-flex mx-auto" style="
+                font-size: 150px;
+                margin-top: -45px;
+                margin-left: -15px;
+                color: green;
+              "></i>
+          </div>
+        </div>
+
+        <button class="try-again-btn d-flex flex-column align-items center justify-content-center">
+          <p>RETAKE EXAM</p>
+          <i class="bi bi-arrow-counterclockwise"></i>
+        </button>
+        <div class="failedContainer container-fluid d-flex d-none mt-2 align-items-center">
+          <div class="me-3">
+            <svg data-icon="lock-keyhole" class="key" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+              <path fill="#000"
+                d="M240 392c0 8.8-7.2 16-16 16s-16-7.2-16-16v-80c0-8.8 7.2-16 16-16s16 7.2 16 16zM224 0c70.7 0 128 57.31 128 128v64h16c44.2 0 80 35.8 80 80v160c0 44.2-35.8 80-80 80H80c-44.18 0-80-35.8-80-80V272c0-44.2 35.82-80 80-80h16v-64C96 57.31 153.3 0 224 0m0 32c-53.9 0-96 42.98-96 96v64h192v-64c0-53.02-43-96-96-96M80 224c-26.51 0-48 21.5-48 48v160c0 26.5 21.49 48 48 48h288c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48z" />
+            </svg>
+          </div>
+          <p class="failedText m-0 text-black d-flex flex-fill justify-content-center text-center">
+            Must pass "Exam" before continuing
+          </p>
+        </div>
+        <div class="cert-btn d-flex">
+          <button class="proceed-btn-cert px-5" onclick="Course.goPage(10)">
+            CONTINUE
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

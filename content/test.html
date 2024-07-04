@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slick Slider Example</title>
+  <!-- Include Slick slider CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Include Slick slider JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+</head>
+<body>
+
+<div class="your-element">
+  <div><img src="https://placekitten.com/200/300" alt="Slide 1"></div>
+  <div><img src="https://placekitten.com/200/300" alt="Slide 2"></div>
+  <div><img src="https://placekitten.com/200/300" alt="Slide 3"></div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.your-element').on('init', function(event, slick){
+      let slideCount = slick.$slides.length;
+      console.log("Total slides:", slideCount);
+    }).slick({
+      // Slick slider settings can be configured here
+      dots: true,
+      arrows: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    });
+  });
+</script>
+
+</body>
+</html>
