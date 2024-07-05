@@ -1,6 +1,6 @@
 $(function () {
   let fNames = [
-    // "0020.html",
+    "0020.html",
     "0030.html",
     "0040.html",
     "0050.html",
@@ -9,7 +9,7 @@ $(function () {
   ];
 
   typeof window.quizAnswer === "undefined" && (window.quizAnswer = function (a, b) { console.log("_quizAnswer", a, b); });
-  
+
   loadFiles_obj.nAll = fNames.length;
   loadFiles_obj.loadFiles(fNames, function () {
     //all HTMLs loaded
@@ -28,12 +28,14 @@ $(function () {
 
 $(window).on('load', function () {
   setTimeout(function () {
-    slider();
-  },1000)
+    // slider();
+  }, 1000)
 })
 
 var Course = {
   oState: {},
+  tipsInit: false,
+
   //
   init: function () {
     // Add page id, page class to content div
@@ -43,7 +45,7 @@ var Course = {
     });
 
     // Handles input and button
-    for (let i = 1; i < 99; i++) {
+    for (let i = 0; i < 99; i++) {
       $(
         $("#page-" + i + " .bot-section input").change(function () {
           if ($("#page-" + i + " input").is(":checked")) {
@@ -82,8 +84,6 @@ var Course = {
     }
     $(".loader-container").addClass("d-none");
     Course.goPage(1);
-
-    // slider();
   },
 
   /**
@@ -123,16 +123,18 @@ var Course = {
       case 2:
         break;
       case 3:
-        accordionOne();
+        // accordionOne();
         break;
       case 4:
-        $(".tips-slider").css("opacity", "0");
+        Course.enaBotNextButton(4, false);
+
         $(window).resize();
-        $(".tips-slider").slick("slickGoTo", 0);
+        $(".tips-slider").css("opacity", "0");
+        Course.slider();
+
         setTimeout(function () {
           $(".tips-slider").css("opacity", "1");
-        }, 600);
-        Course.enaBotNextButton(4, false);
+        }, 1000);
         break;
       case 5:
         break;
@@ -152,6 +154,7 @@ var Course = {
     }
   },
 
+  /** Global Functions */
   enaBotNextButton: function (nPage, mode) {
     let btn = $("#page-" + nPage + " .bot-section button.btn-next");
     let inp = $("#page-" + nPage + " .bot-section input");
@@ -213,4 +216,65 @@ var Course = {
       btn.fadeIn(500);
     }
   },
+
+  /** Custom slider function */
+  slider: function () {
+    let viewed_slides = 0;
+    let slideCount = 0;
+    let slideProgress = 0;
+
+    if (!Course.tipsInit) {
+      Course.tipsInit = true;
+
+      viewed_slides = 1;
+
+      $(".tips-slider").slick({
+        dots: true,
+        arrows: true,
+        infinite: false,
+        slidesToScroll: 1,
+        speed: 600,
+        cssEase: 'ease',
+        easing: 'linear',
+        appendDots: '.process-card__inner',
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              arrows: false
+            }
+          }
+        ]
+      }).on('afterChange', function (event, slick, currentSlide) {
+        let curr_slide = currentSlide;
+
+        switch (curr_slide) {
+          case 0: viewed_slides |= 1; break;
+          case 1: viewed_slides |= 2; break;
+          case 2: viewed_slides |= 4; break;
+          case 3: viewed_slides |= 8; break;
+          case 4: viewed_slides |= 16; break;
+          case 5: viewed_slides |= 32; break;
+          case 6: viewed_slides |= 64; break;
+        }
+
+        slideCount = slick.slideCount;
+
+        /** Calculate slide progress */
+        let n = 0, i;
+        for (i = 0; i <= slideCount; i++) {
+          if ((viewed_slides >> i) & 1) n++;
+        }
+
+        slideProgress = (n / slideCount) * 100;
+        console.log(n, "progress:", slideProgress);
+
+        if (n === slideCount) {
+          Course.enaBotNextButton(4, true);
+        }
+      });
+    }
+
+    $(".tips-slider").slick("slickGoTo", 0);
+  }
 };

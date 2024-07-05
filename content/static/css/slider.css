@@ -1,12 +1,4 @@
-﻿@font-face {
-  font-display: block;
-  font-family: "bootstrap-icons";
-  src: url("../modules/bootstrap/font/fonts/bootstrap-icons.woff2?2820a3852bdb9a5832199cc61cec4e65") format("woff2"),
-  url("../modules/bootstrap/font/fonts/bootstrap-icons.woff"),
-  url("../modules/bootstrap/font/fonts/bootstrap-icons.woff2"),
-    url("../modules/bootstrap/font/fonts/bootstrap-icons.woff?2820a3852bdb9a5832199cc61cec4e65") format("woff");
-}
-/* .tips-slider .slick-prev {
+﻿/* .tips-slider .slick-prev {
   left: -60px;
   background-image: url(../modules/slick/slick-arrow-left.png);
   background-repeat: no-repeat;
@@ -26,7 +18,7 @@
 
 .tips-slider {
   width: 100%;
-  max-width: 860px;
+  max-width: 800px;
   margin: 0 auto;
 }
 .tips-slider .slick-prev,
@@ -49,10 +41,6 @@
   color: var(--bs-gray-dark);
 }
 
-.tips-slider .slick-next:before {
-  /* content: "\f285"; */
-}
-
 .slick-slide {
   margin: 0 40px;
   padding-bottom: 40px;
@@ -62,6 +50,7 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 20px;
   bottom: 0;
 }
 
@@ -127,4 +116,10 @@
   border-radius: 8px;
   padding: 8px 20px;
   transform: translate3d(-50%, -50%, 0);
+}
+
+@media (max-width:768px) {
+  .process-card__inner {
+    min-height: 510px;
+  }
 }
