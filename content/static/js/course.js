@@ -123,7 +123,8 @@ var Course = {
       case 2:
         break;
       case 3:
-        // accordionOne();
+        Course.enaBotNextButton(3, false)
+        Course.accordion(3);
         break;
       case 4:
         Course.enaBotNextButton(4, false);
@@ -276,5 +277,45 @@ var Course = {
     }
 
     $(".tips-slider").slick("slickGoTo", 0);
+  },
+
+  /**
+   * @param {number} nPage
+   * Custom function for accordion 
+   */
+  accordion: function (nPage, i) {
+    let accordion = $("#page-" + nPage + " .accordion");
+    let accordionLength = $("#page-" + nPage + " .accordion > .accordion-item").length;
+    let viewed_accordion = 0;
+
+    let $parentEl = accordion;
+    let $childEl = $parentEl.children();
+
+    // Check if first accordion panel is already opened
+    if ($childEl.eq(0).children('.show').length > 0) {
+      let panel = $childEl.children('.show')[0].id
+
+      $("#" + panel).attr('data-count', 1);
+      viewed_accordion = 1;
+    }
+
+    // Count the viewed_accordion
+    accordion.on("show.bs.collapse", function (event) {
+      let panel = event.target.id;
+
+      if ($("#" + panel).attr('data-count') === 0) {
+        $("#" + panel).attr('data-count', 1);
+        viewed_accordion++;
+      }
+
+      if (viewed_accordion === accordionLength) {
+        Course.enaBotNextButton(nPage, true);
+      }
+
+      console.log("Count", viewed_accordion);
+    });
+
+    // This will reset the viewed_accordion count
+    // TODO
   }
 };

@@ -1,40 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slick Slider Example</title>
-  <!-- Include Slick slider CSS -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
-  <!-- Include jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Include Slick slider JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap 5 Accordion Event Example</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap JS (Bundle includes Popper.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
+    <style>
+        /* Optional custom styles for demonstration */
+        .accordion-item {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="your-element">
-  <div><img src="https://placekitten.com/200/300" alt="Slide 1"></div>
-  <div><img src="https://placekitten.com/200/300" alt="Slide 2"></div>
-  <div><img src="https://placekitten.com/200/300" alt="Slide 3"></div>
+<div class="container mt-5">
+    <h2>Bootstrap 5 Accordion Event Example</h2>
+
+    <div id="myAccordion" class="accordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Accordion Item #1
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                    Content for accordion item #1. This panel is active by default.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Accordion Item #2
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                    Content for accordion item #2.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Accordion Item #3
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                    Content for accordion item #3.
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
-  $(document).ready(function(){
-    $('.your-element').on('init', function(event, slick){
-      let slideCount = slick.$slides.length;
-      console.log("Total slides:", slideCount);
-    }).slick({
-      // Slick slider settings can be configured here
-      dots: true,
-      arrows: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add event listener for show.bs.collapse event
+        var accordion = document.getElementById('myAccordion');
+
+        accordion.addEventListener('show.bs.collapse', function (event) {
+            // Get the panel that is being shown
+            var panel = event.target.id;
+
+            // Log panel ID to console
+            console.log('Panel ID ' + panel + ' is being shown');
+        });
     });
-  });
 </script>
 
 </body>
