@@ -1,80 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap 5 Accordion Event Example</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap JS (Bundle includes Popper.js) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.bundle.min.js"></script>
-    <style>
-        /* Optional custom styles for demonstration */
-        .accordion-item {
-            margin-bottom: 10px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Awareness Training</title>
+  <link href="/app/module-template/3f3db52f-342a-45eb-b473-4dee5a22e465/landing/14/static/img/favicon.png" rel="icon" type="png" />
+  <link href="/app/module-template/3f3db52f-342a-45eb-b473-4dee5a22e465/landing/14/static/modules/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <style type="text/css">
+    body,
+    html {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
+      padding: 0;
+    }
+
+    #app {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #innerApp {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .page__lesson {
+      flex: 1 1 auto;
+      position: relative;
+    }
+
+    .lesson {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      margin: 0 auto;
+      max-width: 100%;
+      overflow: hidden;
+      z-index: 2;
+      transition: padding 0.3s;
+    }
+
+    .lesson__wrap {
+      position: relative;
+      height: 100%;
+      max-height: 100vh;
+      margin: 0 auto;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .lesson__content {
+      height: 100vh;
+      height: 100dvh;
+    }
+
+    .lesson__content_wrapper {
+      height: 100%;
+      -webkit-overflow-scrolling: touch;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .lesson__content_wrapper>div {
+      margin: 0;
+      padding: 0;
+    }
+
+    .loader-container {
+      display: flex;
+      z-index: 9
+    }
+
+    .loader {
+      width: 48px;
+      height: 48px;
+      display: block;
+      margin: 15px auto;
+      position: relative;
+      color: #ccc;
+      box-sizing: border-box;
+      animation: 1s linear infinite rotation
+    }
+
+    .loader::after,
+    .loader::before {
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      top: 50%;
+      left: 50%;
+      transform: scale(.5) translate(0, 0);
+      background-color: #ccc;
+      border-radius: 50%;
+      animation: 1s ease-in-out infinite animloader
+    }
+
+    .loader::before {
+      background-color: #000;
+      transform: scale(.5) translate(-48px, -48px)
+    }
+
+    @keyframes rotation {
+      0% {
+        transform: rotate(0)
+      }
+
+      100% {
+        transform: rotate(360deg)
+      }
+    }
+
+    @keyframes animloader {
+      50% {
+        transform: scale(1) translate(-50%, -50%)
+      }
+    }
+  </style>
+  <!-- Load resources dynamically -->
+  <script id="__CSS_ENTRIES__" type="application/json">
+      {
+        ".css": [
+          "modules/bootstrap/font/bootstrap-icons.css",
+          "modules/slick/slick-theme.css",
+          "modules/slick/slick.css",
+          "modules/slick/slick.css",
+          "css/rise_slider1.css",
+          "css/style.css",
+          "css/fin_exam.css"
+        ]
+      }
+    </script>
+  <script id="__JS_ENTRIES__" type="application/json">
+      {
+        ".js": [
+          "modules/bootstrap/js/bootstrap.min.js",
+          "modules/slick/slick.js",
+          "js/GaugeMeter.js",
+          "js/preloader.js",
+          "js/cookie.js",
+          "js/question.js",
+          "js/exams.js",
+          "js/course.js",
+          "js/accordion.js",
+          "js/slider-page4.js",
+          "js/slider-page5.js",
+          "js/ext.js"
+        ]
+      }
+    </script>
+  <script id="__REMOTE_MODULE__" type="application/json">
+      { ".js": ["scormApi.js"] }
+    </script>
+  <script>
+    (function () {
+      let SCORMDriver = window.parent;
+      let CourseTitle = "AI Awareness Training";
+      let language = "en";
+      let assets = "{{assets}}";
+
+      function loadModule(manifest) {
+        const p = [];
+
+        if (manifest[".css"] != null) {
+          for (var idx = 0; idx < manifest[".css"].length; idx++) {
+            p.push(
+              new Promise((resolve, reject) => {
+                var link = document.createElement("link");
+                link.onload = resolve;
+                link.onerror = reject;
+                link.rel = "stylesheet";
+                link.href = assets + "/static/" + manifest[".css"][idx];
+                document.head.appendChild(link);
+              })
+            );
+          }
         }
-    </style>
+
+        if (manifest[".js"] != null) {
+          for (var idx = 0; idx < manifest[".js"].length; idx++) {
+            p.push(
+              new Promise((resolve, reject) => {
+                var script = document.createElement("script");
+                script.onload = resolve;
+                script.onerror = reject;
+                script.src = assets + "/static/" + manifest[".js"][idx];
+                document.body.appendChild(script);
+              })
+            );
+          }
+        }
+
+        return Promise.all(p);
+      }
+
+      function loadRemoteModule(manifest) {
+        const p = [];
+
+        if (manifest[".js"] != null) {
+          for (var idx = 0; idx < manifest[".js"].length; idx++) {
+            p.push(
+              new Promise((resolve, reject) => {
+                var script = document.createElement("script");
+                script.onload = resolve;
+                script.onerror = reject;
+                script.src = "./" + manifest[".js"][idx];
+                document.head.appendChild(script);
+              })
+            );
+          }
+        }
+
+        return Promise.all(p);
+      }
+
+      function __loadCssEntry() {
+        return loadModule(JSON.parse(document.getElementById("__CSS_ENTRIES__").textContent));
+      }
+
+      function __loadJsEntry() {
+        return loadModule(JSON.parse(document.getElementById("__JS_ENTRIES__").textContent));
+      }
+
+      function __loadRemoteEntry() {
+        return loadRemoteModule(JSON.parse(document.getElementById("__REMOTE_MODULE__").textContent));
+      }
+
+      if (SCORMDriver != null && SCORMDriver != window) {
+        let url = window.location.href;
+        let index = url.lastIndexOf("index.html");
+        let staticPath = url.substr(0, index);
+
+        let faviconLink = document.createElement("link");
+        faviconLink.rel = "icon";
+        faviconLink.type = "image/png";
+        faviconLink.href = staticPath + "static/img/favicon.png";
+
+        // Set document title
+        window.parent.parent.document.title = CourseTitle;
+
+        // Set favicon
+        window.parent.parent.document.head.appendChild(faviconLink);
+
+        // Set document language
+        window.parent.parent.document.getElementsByTagName("html")[0].setAttribute("lang", language);
+
+        // Set lesson location
+        // setLessonLocation('start-training');
+        SCORMDriver.SetBookmark("start-training", "");
+      } else {
+        console.log("Warning: SCORM API not found. Saving of data will not occur.");
+      }
+
+      window.__loadCssEntry = __loadCssEntry;
+      window.__loadJsEntry = __loadJsEntry;
+      window.__loadRemoteEntry = __loadRemoteEntry;
+    })();
+  </script>
 </head>
+
 <body>
+  <div id="app">
+    <div id="innerApp">
+      <div class="page__lesson">
+        <div class="lesson">
+          <div class="lesson__wrap">
+            <div class="lesson__content">
+              <div class="lesson__content_wrapper">
+                <div>
+                  <div class="loader-container flex-column w-100 h-100 position-absolute bg-light align-items-center justify-content-center"><span
+                      class="loader">&nbsp;</span>
+                    <div>Loading content...</div>
+                  </div>
+                </div>
+                <div>
+                  <div class="course bg-white">
+                    <div class="container-fluid bg-white d-flex overflow-hidden px-0">
+                      <section class="holder page1 d-flex justify-content-center">
+                        <div class="content">
+                          <div class="containerWidth mx-auto d-flex flex-row px-3 mt-5">
+                            <div class="start-page d-flex flex-wrap bg-white">
+                              <div class="col-lg-4 align-self-center text-center text-lg-start d-flex flex-column">
+                                <h2 class="m-0 pb-3 pb-lg-5 text-lg-start fw-bold pt-2">AI Awareness Training</h2>
 
-<div class="container mt-5">
-    <h2>Bootstrap 5 Accordion Event Example</h2>
+                                <p>In this course, we&#39;ll discuss the potential dangers of deepfake content and explore various techniques for
+                                  recognizing different types of artificial intelligence-generated deepfake media.</p>
 
-    <div id="myAccordion" class="accordion">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    Accordion Item #1
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#myAccordion">
-                <div class="accordion-body">
-                    Content for accordion item #1. This panel is active by default.
+                                <div class="btn-section d-lg-flex pt-5 d-none"><button
+                                    class="btn proceed-btn btn-next1 btn-bright-blue text fw-bold px-4" onclick="Course.goPage(2)">START
+                                    COURSE</button></div>
+                              </div>
+
+                              <div class="col-lg-8 img-fluid d-flex"><img alt="" class="start-page img-fluid px-4"
+                                  src="/app/module-template/3f3db52f-342a-45eb-b473-4dee5a22e465/landing/14/static/img/startimg.jpg" /></div>
+
+                              <div class="btn-section d-lg-none pt-2 d-flex justify-content-center w-100 my-4"><button
+                                  class="btn proceed-btn btn-next1 btn-bright-blue text fw-bold px-4" onclick="Course.goPage(2)">START COURSE</button>
+                              </div>
+
+                              <div class="footer col-lg-12 w-100 pt-3">
+                                <div class="copyright">
+                                  <p class="text-end">&copy; Cyberdise AG</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Accordion Item #2
-                </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#myAccordion">
-                <div class="accordion-body">
-                    Content for accordion item #2.
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Accordion Item #3
-                </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#myAccordion">
-                <div class="accordion-body">
-                    Content for accordion item #3.
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Add event listener for show.bs.collapse event
-        var accordion = document.getElementById('myAccordion');
-
-        accordion.addEventListener('show.bs.collapse', function (event) {
-            // Get the panel that is being shown
-            var panel = event.target.id;
-
-            // Log panel ID to console
-            console.log('Panel ID ' + panel + ' is being shown');
-        });
-    });
-</script>
-
+  </div>
+  <script>
+    let pathStatic = "static";
+  </script>
+  <script src="/app/module-template/3f3db52f-342a-45eb-b473-4dee5a22e465/landing/14/static/js/jquery-3.7.1.min.js"></script>
+  <script src="/app/module-template/3f3db52f-342a-45eb-b473-4dee5a22e465/landing/14/static/js/jquery-ui.min.js"></script>
+  <script src="/app/module-template/3f3db52f-342a-45eb-b473-4dee5a22e465/landing/14/static/js/jquery.ui.touch-punch.min.js"></script>
+  <script src="/app/module-template/3f3db52f-342a-45eb-b473-4dee5a22e465/landing/14/static/js/jquery.transit.min.js"></script>
+  <script>
+    __loadCssEntry();
+    __loadJsEntry();
+    __loadRemoteEntry()
+      .then(() => {
+        console.log("scormApi.js has been loaded successfully.");
+        initializeSCORM();
+      })
+      .catch((error) => {
+        console.error("Error loading scormApi.js", error);
+      });
+  </script>
 </body>
+
 </html>

@@ -1,9 +1,7 @@
-div.fin-exam .container {
+div.fin-exam {
   background: #ffff;
-}
-
-div.fin-exam .title {
-  padding-bottom: 10px;
+  height: 100%;
+  min-height: calc(100vh - 12rem);
 }
 
 div.fin-exam .title img {
@@ -273,6 +271,11 @@ div.fin-exam div.fin-exam-results td.good {
   background-position: 0 7px;
 }
 
+.exam-intro p {
+  padding: 1.2rem 0;
+  margin: 0;
+}
+
 @media screen and (min-width: 768px) {
   div.fin-exam .wrap {
     width: 100%;
@@ -519,7 +522,7 @@ p.passing {
   top: 21%;
   word-break: keep-all;
 }
-button.startbtn {
+button.btn-start {
   display: inline-block;
   border-radius: 45px;
   padding: 7px 0;
@@ -537,7 +540,7 @@ button.startbtn {
   -webkit-border-radius: 45px;
 }
 
-button.startbtn:hover {
+button.btn-start:hover {
   background: #737b8c;
 }
 

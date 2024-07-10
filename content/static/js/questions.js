@@ -1,4 +1,4 @@
-fin_exam = [
+exam_quest = [
   {
     showResults: 1,
     skipExam: 0,
@@ -6,9 +6,7 @@ fin_exam = [
     countQ: 5,
 
     //1
-    question: "",
-    question2:
-      "Why is it important to recognize the types of data considered sensitive or confidential within your work context?",
+    question: "Why is it important to recognize the types of data considered sensitive or confidential within your work context?",
     answer: 2, //1-first, 2-second, 4-third, 8-fourth
     answers: [
       "To increase device performance.",
@@ -19,10 +17,8 @@ fin_exam = [
   },
   {
     //2
-    question: "",
-    question2:
-      "What is one personal responsibility in protecting work-related data on personal devices?",
-    answer: 4, //1-first, 2-second, 4-third, 8-fourth
+    question: "What is one personal responsibility in protecting work-related data on personal devices?",
+    answer: 4, 
     answers: [
       "Sharing work-related data with family and friends.",
       "Ignoring security warnings and notifications.",
@@ -33,10 +29,8 @@ fin_exam = [
 
   {
     //3
-    question: "",
-    question2:
-      "What is a recommended practice for creating passwords for different accounts and services?",
-    answer: 4, //1-first, 2-second, 4-third, 8-fourth
+    question: "What is a recommended practice for creating passwords for different accounts and services?",
+    answer: 4, 
     answers: [
       "Using the same password for all accounts.",
       "Using weak and easily guessable passwords.",
@@ -47,10 +41,8 @@ fin_exam = [
 
   {
     //4
-    question: "",
-    question2:
-      "Why is it important to regularly update software on personal devices?",
-    answer: 2, //1-first, 2-second, 4-third, 8-fourth
+    question: "Why is it important to regularly update software on personal devices?",
+    answer: 2, 
     answers: [
       "To decrease device security.",
       "To enhance device performance and to maintain the latest security patch level.",
@@ -61,10 +53,8 @@ fin_exam = [
 
   {
     //5
-    question: "",
-    question2:
-      "What is one purpose of using reputable security software on personal devices?",
-    answer: 2, //1-first, 2-second, 4-third, 8-fourth
+    question: "What is one purpose of using reputable security software on personal devices?",
+    answer: 2, 
     answers: [
       "To slow down device performance.",
       "To prevent, detect and remove threats such as viruses and malware.",

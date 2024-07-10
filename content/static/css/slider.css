@@ -1,18 +1,4 @@
-﻿/* .tips-slider .slick-prev {
-  left: -60px;
-  background-image: url(../modules/slick/slick-arrow-left.png);
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-.tips-slider .slick-next {
-  right: -60px;
-  background-image: url(../modules/slick/slick-arrow-right.png);
-  background-repeat: no-repeat;
-  background-position: center center;
-} */
-
-.process-block {
+﻿.process-block {
   position: relative;
 }
 
@@ -101,7 +87,7 @@
 
 .process-card__inner h2 {
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 700; 
   padding-bottom: 22px;
 }
 

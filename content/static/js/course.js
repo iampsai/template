@@ -1,9 +1,9 @@
 $(function () {
   let fNames = [
-    "0020.html",
-    "0030.html",
-    "0040.html",
-    "0050.html",
+    // "0020.html",
+    // "0030.html",
+    // "0040.html",
+    // "0050.html",
     "0060.html",
     "end.html",
   ];
@@ -35,6 +35,7 @@ $(window).on('load', function () {
 var Course = {
   oState: {},
   tipsInit: false,
+  accordionInit: false,
 
   //
   init: function () {
@@ -120,11 +121,10 @@ var Course = {
         break;
       case 1:
         break;
-      case 2:
+      case 2: exam();
         break;
       case 3:
-        Course.enaBotNextButton(3, false)
-        Course.accordion(3);
+        Course.accordion(3, true);
         break;
       case 4:
         Course.enaBotNextButton(4, false);
@@ -281,41 +281,46 @@ var Course = {
 
   /**
    * @param {number} nPage
+   * @param {bool} buttonState
    * Custom function for accordion 
    */
-  accordion: function (nPage, i) {
+  accordion: function (nPage, buttonState) {
     let accordion = $("#page-" + nPage + " .accordion");
-    let accordionLength = $("#page-" + nPage + " .accordion > .accordion-item").length;
-    let viewed_accordion = 0;
+    let accordionLength = accordion.children(".accordion-item").length;
+    let childEl = accordion.children();
 
-    let $parentEl = accordion;
-    let $childEl = $parentEl.children();
+    if (!accordion.data('active')) {
+      accordion.data('active', true);
+      
+      let viewed_accordion = 0;
 
-    // Check if first accordion panel is already opened
-    if ($childEl.eq(0).children('.show').length > 0) {
-      let panel = $childEl.children('.show')[0].id
+      if (buttonState) {
+        Course.enaBotNextButton(nPage, false);
+      }
 
-      $("#" + panel).attr('data-count', 1);
-      viewed_accordion = 1;
+      // Check if first accordion panel is already opened
+      if (childEl.eq(0).children('.show').length > 0) {
+        let panel = childEl.children('.show')[0].id
+
+        $("#" + panel).data('count', 1);
+        viewed_accordion = 1;
+        console.log("Viewed panel:", viewed_accordion, "out of", accordionLength);
+      }
+
+      // Count the viewed_accordion
+      accordion.on("show.bs.collapse", function (event) {
+        let panel = event.target.id;
+
+        if (!$("#" + panel).data('count')) {
+          $("#" + panel).data('count', 1);
+          viewed_accordion++;
+        }
+
+        if (buttonState && viewed_accordion === accordionLength) {
+          Course.enaBotNextButton(nPage, true);
+        }
+        console.log("Viewed panel:", viewed_accordion, "out of", accordionLength);
+      });
     }
-
-    // Count the viewed_accordion
-    accordion.on("show.bs.collapse", function (event) {
-      let panel = event.target.id;
-
-      if ($("#" + panel).attr('data-count') === 0) {
-        $("#" + panel).attr('data-count', 1);
-        viewed_accordion++;
-      }
-
-      if (viewed_accordion === accordionLength) {
-        Course.enaBotNextButton(nPage, true);
-      }
-
-      console.log("Count", viewed_accordion);
-    });
-
-    // This will reset the viewed_accordion count
-    // TODO
   }
 };
