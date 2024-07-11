@@ -7,7 +7,7 @@ var Exam = {
   badAns: 0,
   rightAns: 0,
   exam_copy: null,
-  showExamResult: true, // Enable or disable the exam result
+  showExamAnswers: true, // Enable or disable the exam result
 
   pre: function () {
     // Triggered only once
@@ -190,7 +190,7 @@ var Exam = {
       // console.log(questCount, examQuestion, userAnswer, false);
     }
 
-    if (Exam.showExamResult) {
+    if (Exam.showExamAnswers) {
       Exam.showAnswers();
     }
   },
