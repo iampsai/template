@@ -1,15 +1,7 @@
 div.fin-exam {
   background: #ffff;
   height: 100%;
-  min-height: calc(100vh - 12rem);
-}
-
-div.fin-exam .title img {
-  display: inline-block;
-  width: 93px;
-  height: 100px;
-  margin: 0 0 0 52px;
-  vertical-align: top;
+  min-height: calc(100vh - 11rem);
 }
 
 div.fin-exam .wrap {
@@ -40,36 +32,36 @@ div.fin-exam .title h2 {
   vertical-align: top;
 }
 
-div.fin-exam .title2 {
-  padding-left: 52px;
+div.fin-exam .title {
+  color: var(--bs-dark-gray);
   padding-top: 20px;
 }
 
-div.fin-exam .title2 h1 {
+div.fin-exam .title .quiz-counter {
   display: block;
   text-transform: uppercase;
   font-size: 25px;
   line-height: 29px;
   font-weight: 800;
   margin: 0;
-  padding: 0 50px 13px 0;
+  padding: 0 0 15px 0;
   text-align: left;
-  color: #666;
+  color: var(--bs-dark-gray);
 }
 
-div.fin-exam .title2 h2 {
+div.fin-exam .title h2 {
   display: block;
   font-size: 22px;
   line-height: 28px;
   font-weight: 700;
   margin: 0;
-  padding: 0 50px 13px 0;
+  padding: 0 0 20px 0;
   text-align: left;
   color: #50748a;
 }
 
 div.fin-exam .d-exam {
-  padding-left: 52px;
+  padding-left: 0;
 }
 
 div.fin-exam table,
@@ -93,6 +85,10 @@ div.fin-exam td.chbox {
   padding: 3px 10px;
   text-align: center;
   width: 30px;
+}
+
+div.fin-exam td.chbox:hover {
+  background-color: #f7f7f8;
 }
 
 div.fin-exam tr.dotted td {
@@ -162,6 +158,7 @@ div.fin-exam .ch-label-red:before {
   background-repeat: no-repeat !important;
   background-size: 12px !important;
   background-position: center !important;
+  border: 2px solid red !important;
 }
 
 div.fin-exam .ch-label-green:before {
@@ -180,13 +177,13 @@ div.fin-exam .chbox input[type="checkbox"] + label {
   line-height: 29px;
 }
 
-div.fin-exam .butnext {
+div.fin-exam .button-quiz {
   position: relative;
-  padding: 0px 0px 15px 0;
   text-align: center;
+  overflow: hidden;
 }
 
-div.fin-exam .butnext button {
+div.fin-exam .button-quiz button {
   display: inline-block;
   border-radius: 45px;
   padding: 7px 0;
@@ -197,7 +194,6 @@ div.fin-exam .butnext button {
   outline: none;
   border: 0 none;
   text-align: center;
-  margin-bottom: 10px;
   cursor: pointer;
   background: #003547;
   color: #fff;
@@ -207,8 +203,13 @@ div.fin-exam .butnext button {
   -o-border-radius: 45px;
 }
 
-div.fin-exam .butnext button:hover {
+div.fin-exam .button-quiz button:hover {
   background: #737b8c;
+}
+
+div.fin-exam .button-quiz button.btn-next {
+  display: none;
+  position: relative;
 }
 
 div.fin-exam div.fin-exam-results {
@@ -271,104 +272,75 @@ div.fin-exam div.fin-exam-results td.good {
   background-position: 0 7px;
 }
 
+div.fin-exam td,
+div.fin-exam .chbox input[type="checkbox"] + label {
+  color: #424242;
+  font-size: 16px;
+  line-height: 29px;
+  text-align: left;
+  width: 100%;
+  padding: 10px 0 10px 40px;
+  cursor: pointer;
+}
+
 .exam-intro p {
   padding: 1.2rem 0;
   margin: 0;
 }
 
-@media screen and (min-width: 768px) {
-  div.fin-exam .wrap {
-    width: 100%;
-  }
-}
-
-@media screen and (min-width: 800px) {
-  div.fin-exam .wrap {
-    width: 100%;
-  }
-}
-
-@media screen and (min-width: 992px) {
-  div.fin-exam .wrap {
-    width: 100%;
-  }
-}
-
-@media screen and (min-width: 1200px) {
-  div.fin-exam .wrap {
-    width: 100%;
-  }
-}
-
-.fin-exam-results tr:nth-child(4n + 1),
-.fin-exam-results tr:nth-child(4n + 2) {
-  background-color: #e4f5f9;
+.remarks {
+  position: relative;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .remarks-container {
-  position: relative;
+  position: inherit;
   width: 100%;
-  height: 140px;
 }
 
-div#correct,
-div#incorrect {
-  border: 0.2rem solid var(--color-feedback-icon-border, #000);
-  border-radius: 50%;
-  display: block;
-  height: 3.5rem;
-  line-height: 3.5rem;
-  margin: 0 auto;
-  opacity: 1;
-  text-align: center;
-  transform: scale(1.2);
-  transition: opacity 0.6s 0.9s, transform 0.6s 0.9s;
-  width: 3.5rem;
-  position: relative;
-  top: 90px;
-}
-
-div#correct {
-  border-color: green !important;
-}
-
-div#incorrect {
-  border-color: red !important;
-}
-
-div#correct i {
-  font-size: 30px;
-}
-
-div#incorrect i {
-  font-size: 50px;
-  color: red;
-}
-
-.bi-x::before {
-  font-weight: bold !important;
-}
-
-.correct-container,
-.incorrect-container {
+.remarks-icon {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  color: green;
+  border: 3px solid green;
+  border-radius: 50%;
+  height: 65px;
+  width: 65px;
 }
 
-.correct-container p,
-.incorrect-container p {
-  position: relative;
-  top: 100px;
-  font-weight: bold;
+.remarks-icon i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.remarks-icon i.bi-x-lg:before {
+  font-weight: 700 !important;
+}
+
+.correct {
+  color: green !important;
 }
 
 .correct-border {
   border: 3px solid #3c9e34 !important;
 }
 
+.incorrect {
+  color: red !important;
+}
+
 .incorrect-border {
   border: 3px solid red !important;
+}
+
+.fin-exam-results tr:nth-child(4n + 1),
+.fin-exam-results tr:nth-child(4n + 2) {
+  background-color: #e4f5f9;
 }
 
 .percentage-container {
@@ -420,10 +392,7 @@ span.perc-2 {
   width: 475px;
   height: 475px;
   border-radius: 50%;
-  background: conic-gradient(
-    var(--color-theme) 3.6deg,
-    rgb(255, 255, 255, 0.1) 0deg
-  );
+  background: conic-gradient(var(--color-theme) 3.6deg, rgb(255, 255, 255, 0.1) 0deg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -522,7 +491,7 @@ p.passing {
   top: 21%;
   word-break: keep-all;
 }
-button.btn-start {
+button.btn-quiz-start {
   display: inline-block;
   border-radius: 45px;
   padding: 7px 0;
@@ -540,7 +509,7 @@ button.btn-start {
   -webkit-border-radius: 45px;
 }
 
-button.btn-start:hover {
+button.btn-quiz-start:hover {
   background: #737b8c;
 }
 
@@ -661,22 +630,6 @@ u {
   transition: 0.2s;
 }
 
-div.fin-exam td,
-div.fin-exam .chbox input[type="checkbox"] + label {
-  color: #424242;
-  font-size: 16px;
-  line-height: 29px;
-  text-align: left;
-  width: 100%;
-  padding: 10px 50px;
-  cursor: pointer;
-}
-
-.chbox.chboxgreen:hover,
-.chbox.chboxred:hover {
-  background-color: #f7f7f8;
-}
-
 .failedContainer {
   max-width: 590px;
   padding: 18px 30px;
@@ -769,7 +722,7 @@ div#incorrect {
 }
 
 @media screen and (max-width: 767px) {
-  div.fin-exam .title2 {
+  div.fin-exam .title {
     padding-left: 0;
   }
 
@@ -777,7 +730,7 @@ div#incorrect {
     padding: 0;
   }
 
-  div.fin-exam .title2 h2 {
+  div.fin-exam .title h2 {
     font-size: 18px;
   }
 }

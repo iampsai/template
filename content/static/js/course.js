@@ -120,8 +120,9 @@ var Course = {
       case 0:
         break;
       case 1:
+        Exam.next(0);
         break;
-      case 2: exam();
+      case 2:
         break;
       case 3:
         Course.accordion(3, true);
