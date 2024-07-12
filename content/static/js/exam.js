@@ -1,6 +1,5 @@
 var Exam = {
   preInit: false,
-  nQuest: 0,
   nCurrentQuestion: 0,
   answerLength: 0,
   correctAnswer: 0,
@@ -19,6 +18,7 @@ var Exam = {
       $('button.btn-quiz-start').click(function () {
         $('#exam .exam-intro').hide();
         $('#exam .wrap').fadeIn(800);
+        setLessonLocation("quiz");
       });
 
       $('#exam button.btn-submit').click(function () {
@@ -54,7 +54,7 @@ var Exam = {
         exam_quest.push(Exam.exam_copy[n]);
       }
 
-      exam_quest[0].showResults = Exam.exam_copy[0].showResults;
+      exam_quest[0].showAnswers = Exam.exam_copy[0].showAnswers;
       exam_quest[0].randQ = Exam.exam_copy[0].randQ;
       exam_quest[0].countQ = Exam.exam_copy[0].countQ;
     } else {
@@ -66,11 +66,13 @@ var Exam = {
       exam_quest = Exam.exam_copy;
       exam_quest[0].countQ = exam_quest.length;
     }
+
+    console.log('init');
   },
 
   randomized: function () {
     for (let i = 0; i < 1000; i++) {
-      let n = Math.floor(Math.random * Exam.exam_copy.length);
+      let n = Math.floor(Math.random() * Exam.exam_copy.length);
       if (n >= Exam.exam_copy.length) continue;
 
       if (Exam.exam_copy[n].usedQ == 0) {
@@ -82,11 +84,17 @@ var Exam = {
   },
 
   loadQuestion: function (n) {
-    if (exam_quest <= n || n < 0) {
+    if (exam_quest.length <= n || n < 0) {
+      console.error("Invalid index or exam_quest array is empty:", n);
       return false;
     }
 
     let q = exam_quest[n];
+
+    if (!q) {
+      console.error("Question at index", n, "is undefined:", q);
+      return false;
+    }
 
     Exam.nCurrentQuestion = n;
     Exam.answerLength = q.answers.length;
@@ -116,7 +124,7 @@ var Exam = {
     $("div.fin-exam input[type=checkbox]").prop("checked", false);
     $("div.fin-exam input[type=checkbox] + label").removeClass("ch-label-green ch-label-red");
 
-    console.log(q);
+    // console.log(q);
 
     return true;
   },
@@ -164,8 +172,6 @@ var Exam = {
     let questCount = Exam.nCurrentQuestion;
     let correct_answer = Exam.correctAnswer;
 
-    $("div.fin-exam input[type=checkbox] + label").removeClass("ch-label-green ch-label-red");
-
     let userAnswerCode = Exam.getAnswerCode();
 
     let answerIndex;
@@ -183,10 +189,12 @@ var Exam = {
     if (userAnswerCode == correct_answer) {
       setQuizAnswer(questCount, examQuestion, userAnswer, true);
       exam_quest[questCount].user_result = 1;
+      Exam.setScore();
       // console.log(questCount, examQuestion, userAnswer, true);
     } else {
       setQuizAnswer(questCount, examQuestion, userAnswer, false);
       exam_quest[questCount].user_result = 0;
+      Exam.setScore();
       // console.log(questCount, examQuestion, userAnswer, false);
     }
 
@@ -204,9 +212,9 @@ var Exam = {
     });
 
     $('#remarks').removeClass('correct wrong');
-    $('#remarks .remarks-icon').removeClass('correct correct-border incorrect incorrect-border');
+    $('#remarks .remarks-icon').removeClass('correct green-border incorrect red-border');
     $('#remarks .remarks-icon i').removeClass('bi-check-lg bi-x-lg');
-    $('#remarks').animate({'opacity': 1});
+    $('#remarks').animate({ 'opacity': 1 });
 
     checkboxIds.forEach(function (id, index) {
       if (Exam.correctAnswer & Math.pow(2, index)) {
@@ -217,11 +225,11 @@ var Exam = {
     });
 
     if (userAnswerCode == Exam.correctAnswer) {
-      $('#remarks .remarks-icon').addClass('correct correct-border');
+      $('#remarks .remarks-icon').addClass('correct green-border');
       $('#remarks .remarks-icon i').addClass('bi-check-lg');
       $('#remarks .remarks-text').html('Correct');
     } else {
-      $('#remarks .remarks-icon').addClass('incorrect incorrect-border');
+      $('#remarks .remarks-icon').addClass('incorrect red-border');
       $('#remarks .remarks-icon i').addClass('bi-x-lg');
       $('#remarks .remarks-text').html('Incorrect');
     }
@@ -240,9 +248,82 @@ var Exam = {
     setTimeout(function () {
       $('#exam button.btn-submit').fadeIn();
     }, 500);
-    
+
     // Exam.selectAnswer();
     Exam.next(nextQuest);
+  },
+
+  setScore: function () {
+    let i, n = 0;
+    for (i = 0; i < exam_quest.length; i++) {
+      if (exam_quest[i].user_result == 1) n++;
+    }
+
+    Course.oState.quizScore = n / exam_quest.length * 100;
+    console.log('Quiz score:', Course.oState.quizScore);
+  },
+
+  showResults: function () {
+    $('.exam-container').hide();
+    $('.exam-results').fadeIn();
+
+    let theme_color, icon;
+
+    if (Course.oState.quizScore >= Course.passRate) {
+      theme_color = "DarkGreen";
+      icon = "bi bi-check-lg";
+    } else {
+      theme_color = "Red";
+      icon = "bi bi-x-lg";
+    }
+
+    let gauge_label = "Your score " + Course.oState.quizScore + "%";
+    let gauge_icon = $('<i class="' + icon + '"></i>')
+
+    $('#gaugeMeter').append(gauge_icon);
+
+    $('#gaugeMeter').gaugeMeter({
+      percent: Course.oState.quizScore,
+      color: "#000",
+      style: "Arch",
+      append: "%",
+      size: 500,
+      text_size: 0.4,
+      width: 3,
+      animate_gauge_colors: true,
+      label: gauge_label,
+      label_color: "#000",
+      callback: function () {
+        setTimeout(function () {
+          $('#gaugeMeter span').hide()
+          $('#gaugeMeter b, #gaugeMeter i').fadeIn(500, function () {
+            if (Course.oState.quizScore >= Course.passRate) {
+              $('.exam-results-failed').hide();
+              $('.exam-results-passed').fadeIn();
+            } else {
+              $('.exam-results-passed').hide();
+              $('.exam-results-failed').fadeIn();
+            }
+          });
+        }, 1000)
+      }
+    });
+
+    $('#gaugeMeter span').show();
+    $('#gaugeMeter b, #gaugeMeter i').hide();
+    $('.exam-results span.passingScore').html(Course.passRate + "%");
+
+    setCompletionStatus("passed");
+    setLessonLocation("end-training");
+  },
+
+  reset: function () {
+    $('#exam .wrap, #exam .exam-results, .exam-results-passed, .exam-results-failed').hide();
+    $('#exam .exam-container, #exam .exam-intro').show();
+    $('#exam .title, #exam .d-exam').fadeIn(500);
+    $('#gaugeMeter i').remove();
+
+    Exam.next(0);
   },
 
   next: function (n) {
@@ -259,7 +340,7 @@ var Exam = {
 
         setTimeout(function () {
           if (!Exam.loadQuestion(n)) {
-            Exam.next(0);
+            Exam.showResults();
             return;
           }
 

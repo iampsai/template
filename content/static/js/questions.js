@@ -1,7 +1,6 @@
 exam_quest = [
   {
-    showResults: 1,
-    skipExam: 0,
+    showAnswers: 1,
     randQ: 0,
     countQ: 5,
 

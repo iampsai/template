@@ -4,7 +4,7 @@ $(function () {
     // "0030.html",
     // "0040.html",
     // "0050.html",
-    "0060.html",
+    // "0060.html",
     "end.html",
   ];
 
@@ -33,9 +33,13 @@ $(window).on('load', function () {
 })
 
 var Course = {
-  oState: {},
+  oState: {
+    quizScore: 0,
+  },
   tipsInit: false,
   accordionInit: false,
+
+  passRate: 80,
 
   //
   init: function () {
@@ -120,7 +124,7 @@ var Course = {
       case 0:
         break;
       case 1:
-        Exam.next(0);
+        // Exam.next(0);
         break;
       case 2:
         break;
@@ -148,8 +152,7 @@ var Course = {
         dragAndDrop();
         break;
       case 9:
-        setLessonLocation("quiz");
-        exam();
+        Exam.next(0);
         break;
       case 10:
         break;

@@ -38,6 +38,7 @@
         text_size: 0.22,
         fill: "",
         showvalue: false,
+        callback: null
       },
       t
     );
@@ -333,6 +334,11 @@
             } else {
               $(p).find("output").text(M);
             }
+            if (c <= M) {
+              if (typeof (option.callback) === "function") {
+                option.callback();
+              }
+            }
           }, p));
       }
 
@@ -361,6 +367,7 @@
           "text_size",
           "fill",
           "showvalue",
+          "callback"
         ],
         option = {},
         c = 0,
