@@ -1,10 +1,10 @@
 $(function () {
   let fNames = [
-    // "0020.html",
-    // "0030.html",
-    // "0040.html",
-    // "0050.html",
-    // "0060.html",
+    "0020.html",
+    "0030.html",
+    "0040.html",
+    "0050.html",
+    "0060.html",
     "end.html",
   ];
 
@@ -125,6 +125,7 @@ var Course = {
         break;
       case 1:
         // Exam.next(0);
+        // Course.slider();
         break;
       case 2:
         break;
@@ -136,7 +137,7 @@ var Course = {
 
         $(window).resize();
         $(".tips-slider").css("opacity", "0");
-        Course.slider();
+        Course.slider(4);
 
         setTimeout(function () {
           $(".tips-slider").css("opacity", "1");
@@ -223,13 +224,14 @@ var Course = {
   },
 
   /** Custom slider function */
-  slider: function () {
+  slider: function (nPage) {
     let viewed_slides = 0;
     let slideCount = 0;
     let slideProgress = 0;
 
-    if (!Course.tipsInit) {
-      Course.tipsInit = true;
+    if (!Course["page" + nPage + "TipsInit"] || Course["page" + nPage + "TipsInit"] === "undefined") {
+      Course["page" + nPage + "TipsInit"] = true;
+      console.log("Course.page" + nPage + "TipsInit", Course["page" + nPage + "TipsInit"]);
 
       viewed_slides = 1;
 
@@ -252,30 +254,27 @@ var Course = {
         ]
       }).on('afterChange', function (event, slick, currentSlide) {
         let curr_slide = currentSlide;
-
-        switch (curr_slide) {
-          case 0: viewed_slides |= 1; break;
-          case 1: viewed_slides |= 2; break;
-          case 2: viewed_slides |= 4; break;
-          case 3: viewed_slides |= 8; break;
-          case 4: viewed_slides |= 16; break;
-          case 5: viewed_slides |= 32; break;
-          case 6: viewed_slides |= 64; break;
-        }
+        let slideBitValues = [];
 
         slideCount = slick.slideCount;
 
         /** Calculate slide progress */
         let n = 0, i;
         for (i = 0; i <= slideCount; i++) {
+          slideBitValues.push(Math.pow(2, i));
+
+          if (curr_slide >= 0 && curr_slide < slideBitValues.length) {
+            viewed_slides |= slideBitValues[curr_slide];
+          }
+
           if ((viewed_slides >> i) & 1) n++;
         }
 
         slideProgress = (n / slideCount) * 100;
-        console.log(n, "progress:", slideProgress);
+        console.log(n, "progress:", slideProgress, slideBitValues, curr_slide);
 
         if (n === slideCount) {
-          Course.enaBotNextButton(4, true);
+          Course.enaBotNextButton(nPage, true);
         }
       });
     }
@@ -295,7 +294,7 @@ var Course = {
 
     if (!accordion.data('active')) {
       accordion.data('active', true);
-      
+
       let viewed_accordion = 0;
 
       if (buttonState) {

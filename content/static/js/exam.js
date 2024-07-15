@@ -294,6 +294,7 @@ var Exam = {
       label: gauge_label,
       label_color: "#000",
       callback: function () {
+        // Your logic here after gauge animation ended
         setTimeout(function () {
           $('#gaugeMeter span').hide()
           $('#gaugeMeter b, #gaugeMeter i').fadeIn(500, function () {

@@ -180,6 +180,10 @@ video {
   background-color: #f2f2f2;
 }
 
+.color-theme {
+  color: var(--color-theme);
+}
+
 .color-primary {
   color: var(--color-primary);
 }
@@ -768,18 +772,6 @@ div#result {
   top: -16px;
   background: var(--color-theme);
   border-radius: 50%;
-}
-
-.diploma-color {
-  color: var(--color-theme);
-}
-
-.containerWidth1 {
-  max-width: 1050px;
-}
-
-.containerWidth2 {
-  max-width: 784px;
 }
 
 .lessonTracker {

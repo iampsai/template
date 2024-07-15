@@ -1331,7 +1331,7 @@
                 }
             });
 
-            _.$dots.attr('role', 'tablist').find('li').each(function(i) {
+            _.$dots.eq(_.currentSlide).attr('role', 'tablist').find('li').each(function(i) {
                 var mappedSlideIndex = tabControlIndexes[i];
 
                 $(this).attr({
