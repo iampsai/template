@@ -8,15 +8,15 @@ $(function () {
     "end.html",
   ];
 
-  typeof window.quizAnswer === "undefined" && (window.quizAnswer = function (a, b) { console.log("_quizAnswer", a, b); });
-
   loadFiles_obj.nAll = fNames.length;
   loadFiles_obj.loadFiles(fNames, function () {
     //all HTMLs loaded
 
     setTimeout(() => {
+      initBulkStyles();
       Course.init();
     }, 100);
+
     if (scormAPI.api == null) {
       (window.setQuizAnswer = function (a, b, c, d) { console.log("setQuizAnswer", a, b, c, d); });
       (window.setScore = function (a) { console.log("setScore", a); });
@@ -51,19 +51,19 @@ var Course = {
 
     // Handles input and button
     for (let i = 0; i < 99; i++) {
-      $(
-        $("#page-" + i + " .bot-section input").change(function () {
-          if ($("#page-" + i + " input").is(":checked")) {
-            $("#page-" + i + " .bot-section button.btn-next").removeClass(
-              "disabled"
-            );
-          } else {
-            $("#page-" + i + " .bot-section button.btn-next").addClass(
-              "disabled"
-            );
-          }
-        })
-      );
+      $("#page-" + i + " .bot-section input").change(function () {
+        if ($("#page-" + i + " input").is(":checked")) {
+          $("#page-" + i + " .bot-section button.btn-next").removeClass("disabled");
+        } else {
+          $("#page-" + i + " .bot-section button.btn-next").addClass("disabled");
+        }
+      });
+
+      // Add lesson count
+      $(".course section.holder").find('lessonTracker').each(function (n) {
+        $(this).html(n + 1);
+        console.log(this);
+      })
 
       let btnNext = $("#page-" + i + " .bot-section button.btn-next")[0];
       let btnPrev = $("#page-" + i + " .bot-section button.btn-prev")[0];

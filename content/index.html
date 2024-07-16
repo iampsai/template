@@ -43,8 +43,8 @@
       margin: 0 auto;
       max-width: 100%;
       z-index: 2;
-      word-wrap: break-word;
-      word-break: break-word;
+      /*word-wrap: break-word;
+      word-break: break-word;*/
       transition: padding .3s
     }
 
@@ -151,6 +151,7 @@
           "js/slider.js",
           "js/accordion1.js",
           "js/dragAndDrop.js",
+          "js/bulkStyles.js",
           "js/ext.js"
         ]
       }
@@ -291,7 +292,7 @@
                   </div>
                 </div>
                 <div>
-                  <div class="course my-0">
+                  <div class="course my-0" id="course">
                     <div class="container d-flex overflow-hidden bg-white">
                       <section class="holder d-block">
                         <div class="content container-fluid mx-auto">
@@ -309,7 +310,7 @@
                                     </p>
                                   </div>
                                   <div class="btn-section d-flex justify-content-center justify-content-lg-start pt-5">
-                                    <button class="btn proceed-btn btn-next1 btn-bright-blue text fw-bold px-4" onclick="Course.goPage(2)">
+                                    <button class="btn btn-default proceed-btn btn-next1 btn-bright-blue text fw-bold px-4" onclick="Course.goPage(2)">
                                       START COURSE
                                     </button>
                                   </div>
@@ -317,11 +318,12 @@
                                 <div class="col-lg-8 img-fluid d-flex align-items-center">
                                   <img class="cover-page-img" src="static/img/byod1.png" alt="" />
                                 </div>
-                                <div class="footer col-12">
-                                  <div class="copyright d-flex justify-content-end">
-                                    <p class="text-end m-0">&copy; Cyberdise <span id="currentYear"></span></p>
-                                  </div>
-                                </div>
+                              </div>
+                            </div>
+
+                            <div class="footer col-12 position-absolute bottom-0 py-4" id="footer">
+                              <div class="copyright d-flex justify-content-end">
+                                <div class="text-end m-0">&copy; <span class="copyrightText">Cyberdise</span> <span id="currentYear"></span></div>
                               </div>
                             </div>
                           </div>

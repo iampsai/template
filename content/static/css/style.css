@@ -75,13 +75,6 @@ video {
   cursor: pointer;
 }
 
-.proceed-btn {
-  outline: none;
-  border: 1px solid var(--color-theme);
-  background: var(--color-theme);
-  color: #fff;
-}
-
 .btn-bright-blue {
   --bs-btn-color: #fff;
   --bs-btn-bg: var(--color-bright-blue);
@@ -101,6 +94,13 @@ video {
 
 .btn-bright-blue:hover {
   background-color: #1a998a;
+}
+
+.proceed-btn {
+  outline: none;
+  border: 1px solid var(--color-theme);
+  background: var(--color-theme);
+  color: #fff;
 }
 
 .proceed-btn-wrap {
@@ -223,6 +223,7 @@ video {
 }
 
 .page-wrap {
+  position: relative;
   height: 100%;
   min-height: 100vh;
 }
@@ -803,6 +804,12 @@ div#result {
 .proceed-btn:active {
   box-shadow: none;
   outline: 0;
+}
+
+.footer {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 @media screen and (max-width: 550px) {

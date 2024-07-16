@@ -1,6 +1,51 @@
 {
-  "enabled": true,
-  "CoverPage": {
-    "textColor": "red"
+  "enabled": false,
+  "font": {
+    "fontFamily": "string"
+  },
+  "textColor": {
+    "color": ""
+  },
+  "navBar": {
+    "backgroundColor": "#ffffff",
+    "backgroundImage": "string",
+    "textColor": "#3c3c3c"
+  },
+  "header": {
+    "backgroundColor": "#ffffff",
+    "backgroundImage": "string",
+    "textColor": "#3c3c3c",
+    "textAlign": "center",
+    "height": "50px"
+  },
+  "footer": {
+    "copyrightText": "Cyberdise",
+    "backgroundColor": "string",
+    "backgroundImage": ""
+  },
+  "coverPage": {
+    "headingColor": "string",
+    "fontSize": "string",
+    "coverImage": "static/img/byod1.png"
+  },
+  "defaultButton": {
+    "backgroundColor": "string",
+    "borderColor": "string",
+    "textColor": "string"
+  },
+  "primaryButton": {
+    "backgroundColor": "string",
+    "borderColor": "string",
+    "textColor": "string"
+  },
+  "secondaryButton": {
+    "backgroundColor": "string",
+    "borderColor": "string",
+    "textColor": "string"
+  },
+  "dangerButton": {
+    "backgroundColor": "string",
+    "borderColor": "string",
+    "textColor": "string"
   }
 }
